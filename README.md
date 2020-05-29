@@ -1,3 +1,17 @@
+# To run the project use:
+
+To launch the simulation
+  ```bash
+  roslaunch rover_sim defalut.launch
+  ```
+for the forward command
+  ```bash
+  rosrun rover_driver forward(Press Entre)-> entre the forward speed: ($required speed)
+  ```
+for turn command
+  ```bash
+  rosrun rover_driver turn(Press Entre)-> entre the turn speed: ($required speed)
+  ```
 # 2020_rover
 Summer Project 2020
 
