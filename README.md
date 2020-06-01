@@ -4,6 +4,11 @@ To launch the simulation
   ```bash
   roslaunch rover_sim defalut.launch
   ```
+  
+To launch the all nodes of driver to move to a cetain point in plane(point to be specified in action.cpp)
+  ```bash
+  roslaunch rover_driver default.launch
+  ```
 for the forward command
   ```bash
   rosrun rover_driver forward(Press Entre)-> entre the forward speed: ($required speed)
