@@ -5,16 +5,24 @@
 #include <stdlib.h> 
 double angular_z;
 
+
+void see(const geometry_msgs::Twist& msg)
+{
+     //ROS_INFO_STREAM("Subscriber velocities:"<<" linear="<<msg.linear.x<<" angular="<<msg.angular.z);
+     //linear_x = msg.linear.x;
+     angular_z = msg.angular.z;
+     std::cout<<msg.angular.z;
+} 
+
 int main(int argc, char **argv) {
-      //Initializes ROS, and sets up a node
       ros::init(argc, argv, "turn_commands");
       ros::NodeHandle nh;
-      const double  PI = 3.1415926535897;
  
-      std::cout<<"Entre you turn angle: ";
-      std::cin>>angular_z;
+      //std::cout<<"Entre you turn angle: ";
+      //std::cin>>angular_z;
 
-      double angle = angular_z*PI/180;
+      
+      ros::Subscriber sub = nh.subscribe("rover_cmd", 100, see);
 
       ros::Publisher pub1=nh.advertise<std_msgs::Float64>("rover/corner_lf_wheel_lf_controller/command", 100);
       ros::Publisher pub2=nh.advertise<std_msgs::Float64>("rover/bogie_left_wheel_lm_controller/command", 100);
@@ -28,14 +36,14 @@ int main(int argc, char **argv) {
       ros::Rate rate(10);
 
       while(ros::ok()) {
-           //Declares the message to be sent
+           ros::spinOnce();
            std_msgs::Float64 msg1;
            std_msgs::Float64 msg2;
 
-           msg1.data = angle*10;
-           msg2.data = angle*10;
+           msg1.data = angular_z*10;
+           msg2.data = angular_z*10;
+           
 
-           //Publish the message
            pub1.publish(msg1);
            pub2.publish(msg1);
            pub3.publish(msg1);
@@ -43,7 +51,6 @@ int main(int argc, char **argv) {
            pub5.publish(msg2);
            pub6.publish(msg2);
 
-           //Delays untill it is time to send another message
            rate.sleep();
         }
 }

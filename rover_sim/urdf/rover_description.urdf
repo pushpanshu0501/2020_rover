@@ -259,7 +259,7 @@
       </geometry>
     </visual>
   </link>
-  <joint name="body_rocker_left" type="continuous">
+  <joint name="body_rocker_left" type="revolute">
     <parent link="body"/>
     <child link="rocker_left"/>
     <origin rpy="1.49669  0 1.57079" xyz="0 -0.16496 -0.30899"/>
@@ -313,7 +313,7 @@
       </geometry>
     </visual>
   </link>
-  <joint name="body_rocker_right" type="continuous">
+  <joint name="body_rocker_right" type="revolute">
     <parent link="body"/>
     <child link="rocker_right"/>
     <origin rpy="1.57079 -0.0741   0" xyz="0       0.1649  -0.30899"/>

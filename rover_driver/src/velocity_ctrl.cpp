@@ -4,27 +4,33 @@
 
 #include <stdlib.h> 
 
+geometry_msgs::Twist vel;
+
+
+void callBack(const geometry_msgs::Twist& msg){
+      vel.linear.x = msg.linear.x;
+      vel.angular.z = msg.angular.z;
+      std::cout<<msg.linear.x;
+      std::cout<<msg.angular.z;
+}
+
 int main(int argc, char **argv) {
-      //Initializes ROS, and sets up a node
       ros::init(argc, argv, "velocity_commands");
       ros::NodeHandle nh;
 
+      ros::Subscriber sub = nh.subscribe("cmd_vel", 100, callBack);
       ros::Publisher pub =nh.advertise<geometry_msgs::Twist>("rover_cmd", 100);
 
       srand(time(0));
       ros::Rate rate(10);
 
         while(ros::ok()) {
-           //Declares the message to be sent
+           ros::spinOnce();
            geometry_msgs::Twist msg;
-
-           msg.linear.x = 10.00;
-           msg.angular.z=0.00;
+           msg.linear.x = vel.linear.x;
+           msg.angular.z= vel.angular.z;
            pub.publish(msg);
            
-         
-
-           //Delays untill it is time to send another message
            rate.sleep();
          }
 }
