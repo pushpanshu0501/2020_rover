@@ -6,4 +6,3 @@ catkin_simple(ALL_DEPS_REQUIRED)
 
 cs_install()
 cs_export()
-
